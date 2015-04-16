@@ -67,21 +67,22 @@
             android:textStyle="bold" />
 
         <GridLayout
-            android:layout_width="400dp"
-            android:layout_height="250dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@id/car_number"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
+            android:useDefaultMargins="true"
             android:columnCount="4"
+            android:alignmentMode="alignBounds"
             android:rowCount="3">
 
             <Button
                 android:id="@+id/number_7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
                 android:background="@mipmap/t_number"
                 android:text="7"
+
                 style="@style/Car_number" />
 
             <Button
@@ -89,43 +90,43 @@
                 style="@style/Car_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
                 android:background="@mipmap/t_number"
+                android:layout_marginLeft="30dp"
                 android:text="8" />
 
             <Button
                 android:id="@+id/number_9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
                 android:background="@mipmap/t_number"
                 android:text="9"
-                style="@style/Car_number"/>
+                android:layout_marginLeft="30dp"
+
+                style="@style/Car_number" />
 
             <Button
                 android:id="@+id/number_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
                 android:background="@mipmap/t_number"
                 android:text="退格"
-                style="@style/Car_number_text"/>
+                android:layout_marginLeft="30dp"
+
+                style="@style/Car_number_text" />
 
             <Button
                 android:id="@+id/number_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
                 android:background="@mipmap/t_number"
                 android:text="4"
+                android:layout_marginTop="30dp"
                 style="@style/Car_number" />
 
             <Button
                 android:id="@+id/number_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
                 android:background="@mipmap/t_number"
                 android:text="5"
                 style="@style/Car_number" />
@@ -134,7 +135,6 @@
                 android:id="@+id/number_6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
                 android:background="@mipmap/t_number"
                 android:text="6"
                 style="@style/Car_number" />
@@ -143,46 +143,43 @@
                 android:id="@+id/number_0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
                 android:background="@mipmap/t_number"
                 android:text="0"
-                style="@style/Car_number"/>
+                style="@style/Car_number" />
 
             <Button
                 android:id="@+id/number_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
                 android:background="@mipmap/t_number"
                 android:text="1"
-                style="@style/Car_number"/>
+                android:layout_marginTop="30dp"
+
+                style="@style/Car_number" />
 
             <Button
                 android:id="@+id/number_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
                 android:background="@mipmap/t_number"
                 android:text="2"
-                style="@style/Car_number"/>
+                style="@style/Car_number" />
 
             <Button
                 android:id="@+id/number_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
                 android:background="@mipmap/t_number"
                 android:text="3"
-                style="@style/Car_number"/>
+                style="@style/Car_number" />
 
             <Button
                 android:id="@+id/number_confirm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
                 android:background="@mipmap/t_number"
                 android:text="确认"
-                style="@style/Car_number_text"/>
+                style="@style/Car_number_text" />
         </GridLayout>
     </RelativeLayout>
 
