@@ -3,4 +3,16 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <!--Main page-->
+    <string name="main_top_bar_school_name">西安诺曼科技幼儿园</string>
+    <string name="main_teacher_sign_button">老\n师\n签\n到</string>
+    <string name="main_bottom_copyright">诺曼科技\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020版权所有</string>
+
+    <!--input car number-->
+    <string name="input_car_hint">请您输入卡号</string>
+    <!--admin-->
+    <string name="admin_button_back_main_page">返回主页</string>
+    <string name="admin_button_check_update">检查版本更新</string>
+    <string name="admin_button_reset">恢复出厂设置</string>
+    <string name="admin_button_exit">退出</string>
 </resources>
