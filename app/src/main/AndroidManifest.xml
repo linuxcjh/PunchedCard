@@ -17,6 +17,13 @@
             </intent-filter>
         </activity>
 
+        <!-- Admin login-->
+        <activity
+            android:name=".AdminLoginActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|fontScale"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
     </application>
 
 </manifest>
