@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import nuoman.com.framwork.network.Constants;
+import nuoman.com.framwork.network.NMConstants;
 
 
 /**
@@ -54,7 +54,7 @@ public class AppConfig {
 	 */
 	public static void setStringConfig(String key, String value) {
 		SharedPreferences preferences = context.getSharedPreferences(
-				Constants.MINGZHI_SOFT_SAM, Context.MODE_PRIVATE);
+				NMConstants.NUO_MAN_DOC, Context.MODE_PRIVATE);
 		Editor editor = preferences.edit();
 		editor.putString(key, value);
 		editor.commit();
@@ -62,17 +62,27 @@ public class AppConfig {
 
 	/**
 	 * 得到String类型程序参数
-	 * 
+	 *
 	 * @param key
 	 * @param defValue
 	 * @return
 	 */
 	public static String getStringConfig(String key, String defValue) {
 		SharedPreferences preferences = context.getSharedPreferences(
-				Constants.MINGZHI_SOFT_SAM, Context.MODE_PRIVATE);
+				NMConstants.NUO_MAN_DOC, Context.MODE_PRIVATE);
 		String site = preferences.getString(key, defValue);
 		return site;
 	}
+/*
+*
+* 初始化登陆
+* */
+    public static void setIsInit( String value) {
+        setStringConfig("INIT_LOGIN",value);
+    }
 
+    public static String getIsInit() {
 
+        return getStringConfig("INIT_LOGIN","");
+    }
 }

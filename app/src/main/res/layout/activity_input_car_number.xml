@@ -10,74 +10,39 @@
     tools:context=".MainActivity">
 
 
-    <RelativeLayout
-        android:id="@+id/top_bar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/activity_main_top_high"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/top_bar_school_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:background="@mipmap/school_name"
-            android:gravity="center"
-            android:text="@string/main_top_bar_school_name"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/top_bar_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="2015年04月11日   13:44   星期一"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
-
-    <ImageView
-        android:id="@+id/top_line"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/top_bar"
-        android:background="@mipmap/line" />
+    <include layout="@layout/top_bar"/>
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/top_bar"
         android:gravity="center">
 
-        <TextView
-            android:id="@+id/car_number"
-            android:layout_width="370dp"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/input"
-            android:gravity="center_vertical"
-            android:hint="@string/input_car_hint"
-            android:paddingLeft="25dp"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
 
         <GridLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/car_number"
             android:layout_marginTop="30dp"
             android:useDefaultMargins="true"
             android:columnCount="4"
             android:alignmentMode="alignBounds"
-            android:rowCount="3">
+            android:rowCount="4">
+            <TextView
+                android:id="@+id/car_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/input"
+                android:gravity="center_vertical"
+                android:layout_columnSpan="4"
+                android:hint="@string/input_car_hint"
+                android:paddingLeft="25dp"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/number_7"
+                android:layout_marginTop="40dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@mipmap/t_number"

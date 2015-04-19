@@ -10,58 +10,59 @@
     tools:context=".MainActivity">
 
 
-
-        <ImageView
-            android:id="@+id/top_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-         android:layout_centerHorizontal="true"
-          android:layout_marginTop="50dp"
-            android:src="@mipmap/logo"
-            />
-
-    <LinearLayout
-        android:layout_below="@id/top_image"
+    <ImageView
+        android:id="@+id/top_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:src="@mipmap/logo" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_image"
         android:layout_centerInParent="true"
         android:layout_marginTop="80dp"
         android:orientation="vertical">
 
 
-        <TextView
+        <EditText
             android:id="@+id/manager_car_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:background="@mipmap/input"
             android:gravity="center_vertical"
-            android:layout_gravity="center_horizontal"
             android:hint="@string/input_car_hint"
+            android:inputType="number"
             android:paddingLeft="25dp"
+            android:singleLine="true"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <Button  android:id="@+id/bt_manager_login"
+        <Button
+            android:id="@+id/bt_manager_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:background="@mipmap/sign_in"
             android:layout_marginTop="30dp"
+            android:background="@mipmap/sign_in"
+            android:gravity="center"
             android:text="登     录"
             android:textColor="@android:color/white"
             android:textSize="24sp"
-            android:gravity="center"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
 
     </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
+        android:text="@string/main_bottom_copyright"
         android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:text="@string/main_bottom_copyright"/>
+        android:textSize="18sp" />
 </RelativeLayout>

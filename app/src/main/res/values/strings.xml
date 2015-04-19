@@ -15,4 +15,11 @@
     <string name="admin_button_check_update">检查版本更新</string>
     <string name="admin_button_reset">恢复出厂设置</string>
     <string name="admin_button_exit">退出</string>
+    <!--punch-->
+    <string name="school_punch_card_grad">年\u0020\u0020\u0020\u0020\u0020\u0020\u0020级：</string>
+    <string name="school_punch_card_class">班\u0020\u0020\u0020\u0020\u0020\u0020\u0020级：</string>
+    <string name="school_punch_card_parent">监\u0020\u0020护\u0020\u0020人：</string>
+    <string name="teacher_punch_card_num">卡\u0020\u0020\u0020\u0020\u0020\u0020\u0020号：</string>
+    <string name="teacher_punch_time">签到时间：</string>
+
 </resources>

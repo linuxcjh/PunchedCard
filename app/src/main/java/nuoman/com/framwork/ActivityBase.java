@@ -54,9 +54,7 @@ public abstract class ActivityBase extends FragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		// 这是为了应用程序安装完后直接打开，按home键退出后，再次打开程序出现的BUG
-
+        m_progressDialog = Utils.getProgressDialog(this);
 		setContentView(setContentViewResId());
 		findWigetAndListener();
 		initData();
@@ -92,10 +90,8 @@ public abstract class ActivityBase extends FragmentActivity implements
 	protected abstract void initData();
 
 	@Override
-	public void onPreExecute(Task<?, ?> task) {
-		if (m_progressDialog == null) {
-			m_progressDialog = Utils.getProgressDialog(this);
-		}
+	public void  taskOnPreExecute(Task<?, ?> task) {
+
 		if (progressDialogFlag) {
 			m_progressDialog.setMessage(prompt);
 			m_progressDialog.show();
@@ -103,7 +99,7 @@ public abstract class ActivityBase extends FragmentActivity implements
 	}
 
 	@Override
-	public void onPostExecute(Task<?, ?> task, Object[] result) {
+	public void  taskOnPostExecute(Task<?, ?> task, Object[] result) {
 		if (m_tasks != null) {
 			m_tasks.remove(task);
 			if (m_tasks.size() == 0) {
@@ -117,7 +113,7 @@ public abstract class ActivityBase extends FragmentActivity implements
 	}
 
 	@Override
-	public void onProgressUpdate(Task<?, ?> task, String... values) {
+	public void  taskOnProgressUpdate(Task<?, ?> task, String... values) {
 		// TODO Auto-generated method stub
 
 	}

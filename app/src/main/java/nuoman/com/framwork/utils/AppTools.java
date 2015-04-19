@@ -682,11 +682,10 @@ public class AppTools {
 	/**
 	 * Toast
 	 * 
-	 * @param context
 	 * @param content
 	 */
-	public static void getToast(Context context, String content) {
-		Toast.makeText(context, content, Toast.LENGTH_SHORT).show();
+	public static void getToast( String content) {
+		Toast.makeText(AppConfig.getContext(), content, Toast.LENGTH_SHORT).show();
 	}
 
 	/**

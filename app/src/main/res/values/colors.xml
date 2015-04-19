@@ -2,5 +2,9 @@
 <resources>
 
     <color name="transparent">#00000000</color>
+    <color name="puncher_status_color">#FF8800</color>
+    <color name="name_color">#0099CC</color>
+    <color name="puncher_text_color">#6F6F6F</color>
+
 
 </resources>

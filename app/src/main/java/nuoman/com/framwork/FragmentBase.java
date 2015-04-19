@@ -75,7 +75,7 @@ public abstract class FragmentBase extends Fragment implements Task.TaskListener
 	protected abstract void initData();
 
 	@Override
-	public void onPreExecute(Task<?, ?> task) {
+	public void  taskOnPreExecute(Task<?, ?> task) {
 		if (m_progressDialog == null) {
 			m_progressDialog = Utils.getProgressDialog(this.getActivity());
 		}
@@ -85,7 +85,7 @@ public abstract class FragmentBase extends Fragment implements Task.TaskListener
 	}
 
 	@Override
-	public void onPostExecute(Task<?, ?> task, Object[] result) {
+	public void  taskOnPostExecute(Task<?, ?> task, Object[] result) {
 		if (m_tasks != null) {
 			m_tasks.remove(task);
 			if (m_tasks.size() == 0) {
@@ -98,7 +98,7 @@ public abstract class FragmentBase extends Fragment implements Task.TaskListener
 	}
 
 	@Override
-	public void onProgressUpdate(Task<?, ?> task, String... values) {
+	public void  taskOnProgressUpdate(Task<?, ?> task, String... values) {
 		
 	}
 

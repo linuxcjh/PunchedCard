@@ -3,15 +3,7 @@ package nuoman.com.framwork;
 import android.os.AsyncTask;
 
 /**
- * 
- * @file : Task.java [V 1.0.0]
- * 
- * @author: 陈建辉
- * 
- * @time : CREAT AT 2013-6-18 上午10:59:10
- * 
  * @TODO : 【框架中所有AsyncTask任务的基类】
- * 
  */
 public class Task<R, S> extends AsyncTask<R, S, Object[]> {
 	
@@ -21,11 +13,11 @@ public class Task<R, S> extends AsyncTask<R, S, Object[]> {
 	
 	public interface TaskListener {
 		
-		public void onPreExecute(Task<?, ?> task);
+		public void taskOnPreExecute(Task<?, ?> task);
 
-		public void onPostExecute(Task<?, ?> task, Object[] result);
+		public void  taskOnPostExecute(Task<?, ?> task, Object[] result);
 
-		public void onProgressUpdate(Task<?, ?> task, String... values);
+		public void  taskOnProgressUpdate(Task<?, ?> task, String... values);
 	}
 
 	public Task(TaskListener listener) {
@@ -54,17 +46,17 @@ public class Task<R, S> extends AsyncTask<R, S, Object[]> {
 	}
 	@Override
 	protected void onPreExecute() {
-		m_listener.onPreExecute(this);
+		m_listener. taskOnPreExecute(this);
 	}
 
 	@Override
 	protected void onPostExecute(Object[] result) {
-		m_listener.onPostExecute(this, result);
+		m_listener. taskOnPostExecute(this, result);
 	}
 
 	@Override
 	protected void onProgressUpdate(S... values) {
-		m_listener.onProgressUpdate(this, values[0].toString());
+		m_listener. taskOnProgressUpdate(this, values[0].toString());
 	}
 
 	@Override

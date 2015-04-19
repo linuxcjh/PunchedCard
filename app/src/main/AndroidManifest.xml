@@ -2,13 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="nuoman.com.fragment" >
 
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
+        android:name=".MineApplication"
         android:icon="@mipmap/ic_launcher"
+        android:persistent="true"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         <activity
-            android:name="nuoman.com.fragment.MainActivity"
+            android:name="nuoman.com.fragment.WelcomeActivity"
             android:screenOrientation="landscape"
             android:label="@string/app_name" >
             <intent-filter>
@@ -19,11 +22,40 @@
 
         <!-- Admin login-->
         <activity
-            android:name=".AdminLoginActivity"
+            android:name=".MainActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|fontScale"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan|stateHidden" >
         </activity>
+        <!-- Teacher input number-->
+        <activity
+        android:name=".TeacherInputNumberActivity"
+        android:configChanges="keyboard|keyboardHidden|orientation|fontScale"
+        android:screenOrientation="landscape"
+        android:windowSoftInputMode="adjustPan|stateHidden" >
+    </activity>
+        <!-- Teacher punch successful-->
+        <activity
+            android:name=".TeacherPunchSuccessActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|fontScale"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+        <!--Parent punch successful-->
+        <activity
+            android:name=".ParentPunchSuccessActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|fontScale"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+        <!--WelcomeActivity punch -->
+        <activity
+            android:name=".SchoolMastarLoginActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|fontScale"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
     </application>
 
 </manifest>

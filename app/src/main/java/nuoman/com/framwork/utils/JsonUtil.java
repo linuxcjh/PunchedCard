@@ -20,6 +20,7 @@ public abstract class JsonUtil {
 
 	public static Gson getGsonInstance() {
 		Gson gson = builder.setDateFormat(DateUtil.yyyy_MM_dd_HH_mm_ss).create();
+
 		return gson;
 	}
 
