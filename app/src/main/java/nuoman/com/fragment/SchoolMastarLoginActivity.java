@@ -42,7 +42,8 @@ public class SchoolMastarLoginActivity extends ActivityBase {
     private RequestQueue requestQueue;
     private EditText manager_car_number;
     private Button bt_manager_login;
-    String url = "http://123.57.34.179/attendence_sys/SendInfoController?schlid=8";
+
+    String url="http://123.57.34.179/attendence_sys/LoginController?tel=18000000000&machineid=1";//校长登陆
 
     @Override
     protected int setContentViewResId() {
@@ -77,8 +78,7 @@ public class SchoolMastarLoginActivity extends ActivityBase {
             public void onResponse(String s) {
                 m_progressDialog.dismiss();
                 AppTools.getToast(s);
-                s=s.replace("[[","[");
-                s=s.replace("]]","]");
+
                 List<PersonInfo> list = new ArrayList<PersonInfo>();
                 list= (List<PersonInfo>)JsonUtil.getGsonInstance().fromJson(s, new TypeToken<List<PersonInfo>>(){}.getType());
                 DBManager.getDbManagerInstance(AppConfig.getContext()).addData(list);
@@ -111,16 +111,5 @@ public class SchoolMastarLoginActivity extends ActivityBase {
         }
 
     }
-
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public void taskOnPostExecute(Task<?, ?> task, Object[] result) {
-        // TODO Auto-generated method stub
-        super.taskOnPostExecute(task, result);
-
-
-    }
-
 
 }

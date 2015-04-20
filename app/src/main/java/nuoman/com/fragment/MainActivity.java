@@ -39,7 +39,8 @@ public class MainActivity extends ActivityBase {
     private ViewFlow viewFlow;
     private CircleFlowIndicator indic;
     private Button teacher_login_bt;
-    private   String url="http://123.57.34.179/attendence_sys/SendNewsController?schlid=2";
+//    String url = "http://123.57.34.179/attendence_sys/SendInfoController?schlid=8";//获取人员信息
+    private   String url="http://123.57.34.179/attendence_sys/SendNewsController?schlid=2";//获取新闻
 
     @Override
     protected void findWigetAndListener() {
@@ -87,8 +88,7 @@ public class MainActivity extends ActivityBase {
             public void onResponse(String s) {
                 m_progressDialog.dismiss();
                 AppTools.getToast(s);
-                s=s.replace("[[","[");
-                s=s.replace("]]","]");
+
                 List<NewsInfo> list = new ArrayList<NewsInfo>();
                 list= (List<NewsInfo>) JsonUtil.getGsonInstance().fromJson(s, new TypeToken<List<NewsInfo>>(){}.getType());
 //                DBManager.getDbManagerInstance(AppConfig.getContext()).addData(list);

@@ -5,10 +5,14 @@ import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -305,7 +309,34 @@ public class Utils {
 		return dm.widthPixels;
 	}
 
+    /**
+     * byte convert bitmap
+     * @param temp
+     * @return
+     */
+    public static Bitmap getBitmapFromByte(byte[] temp){
+        if(temp != null){
+            Bitmap bitmap = BitmapFactory.decodeByteArray(temp, 0, temp.length);
+            return bitmap;
+        }else{
+            return null;
+        }
+    }
 
-
-
+    /**
+     *
+     * @param bitmap
+     * @return
+     */
+    public static byte[] getBitmapByte(Bitmap bitmap){
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+        try {
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return out.toByteArray();
+    }
 }

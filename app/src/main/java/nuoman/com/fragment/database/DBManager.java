@@ -40,6 +40,7 @@ public class DBManager {
                 db.execSQL("INSERT INTO person VALUES(null,?,?,?)", new Object[]{personInfo.getName(), personInfo.getCardno(), personInfo.getNumber()});
             }
             db.setTransactionSuccessful();
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -51,8 +52,17 @@ public class DBManager {
      * clear data
      */
     public void clearData( ){
-        db.execSQL("DELETE FROM person");
-        db.execSQL("DELETE FROM sqlite_sequence");
+
+        db.beginTransaction();
+        try {
+            db.execSQL("DELETE FROM person");
+            db.execSQL("DELETE FROM sqlite_sequence");
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            db.endTransaction();
+        }
     }
     /**
      * close database
