@@ -5,40 +5,52 @@
     android:layout_height="match_parent"
     android:background="@mipmap/bg"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+
     tools:context=".MainActivity">
 
     <ImageView
         android:id="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <include layout="@layout/top_bar"/>
+
+    <include layout="@layout/top_bar" />
 
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="320dp"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="100dp"
-        android:layout_marginRight="100dp">
+        android:layout_height="260dp"
+        android:layout_marginLeft="160dp"
+        android:layout_marginRight="160dp"
 
-        <com.nuoman.widget.ViewFlow
-            android:id="@+id/view_flow"
+        android:layout_centerInParent="true">
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></com.nuoman.widget.ViewFlow>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="bottom"
-            android:background="#88252525"
-            android:gravity="center"
-            android:padding="3dip">
+            android:layout_height="240dp"
+            android:background="@mipmap/poster_bg"
+            android:padding="8dp"
+            android:orientation="vertical">
 
 
-        </LinearLayout>
+            <com.nuoman.widget.ViewFlow
+                android:id="@+id/view_flow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                </com.nuoman.widget.ViewFlow>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom"
+                android:background="#88252525"
+                android:gravity="center"
+                android:layout_alignParentBottom="true"
+                android:padding="3dip">
+
+
+            </LinearLayout>
+        </RelativeLayout>
 
         <com.nuoman.widget.CircleFlowIndicator
             android:id="@+id/view_flow_in"
@@ -75,5 +87,5 @@
         android:layout_centerInParent="true"
         android:text="@string/main_bottom_copyright"
         android:textColor="@android:color/white"
-        android:textSize="18sp" />
+        android:textSize="13sp" />
 </RelativeLayout>

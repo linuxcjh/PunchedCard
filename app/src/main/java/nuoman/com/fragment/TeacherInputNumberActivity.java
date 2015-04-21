@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -21,9 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import nuoman.com.framwork.ActivityBase;
-import nuoman.com.framwork.Task;
-import nuoman.com.framwork.utils.AppConfig;
-import nuoman.com.framwork.utils.AppTools;
 
 
 /**
@@ -72,6 +68,15 @@ public class TeacherInputNumberActivity extends ActivityBase {
         number_back.setOnClickListener(this);
         number_confirm = getViewById(R.id.number_confirm);
         number_confirm.setOnClickListener(this);
+        number_back.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                car_number.setText("");
+
+                return false;
+            }
+        });
     }
 
     @Override
@@ -121,7 +126,7 @@ public class TeacherInputNumberActivity extends ActivityBase {
                 }
                 break;
             case R.id.number_confirm:
-                Intent intent = new Intent(TeacherInputNumberActivity.this, TeacherPunchSuccessActivity.class);
+                Intent intent = new Intent(TeacherInputNumberActivity.this, SettingActivity.class);
                 startActivity(intent);
                 break;
             default:

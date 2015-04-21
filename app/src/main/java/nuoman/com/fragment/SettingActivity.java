@@ -14,9 +14,9 @@ import nuoman.com.framwork.Task;
  * 
  * @time Sep 15, 2014 11:42:46 AM
  * 
- * @TODO [监护人打卡成功]
+ * @TODO [设置]
  */
-public class ParentPunchSuccessActivity extends ActivityBase {
+public class SettingActivity extends ActivityBase {
 
 
 
@@ -24,7 +24,7 @@ public class ParentPunchSuccessActivity extends ActivityBase {
 	@Override
 	protected int setContentViewResId() {
 		// TODO Auto-generated method stub
-		return R.layout.activity_school_punchcard_success;
+		return R.layout.activity_manager_setting;
 	}
 
 	@Override

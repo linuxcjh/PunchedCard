@@ -3,30 +3,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/bg"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+
     tools:context=".MainActivity">
 
 
-    <include layout="@layout/top_bar"/>
+    <include
+        layout="@layout/top_bar"
+        android:id="@+id/top_bar" />
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/top_bar"
         android:gravity="center">
 
 
         <GridLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:useDefaultMargins="true"
             android:columnCount="4"
             android:alignmentMode="alignBounds"
             android:rowCount="4">
+
             <TextView
                 android:id="@+id/car_number"
                 android:layout_width="match_parent"
@@ -36,16 +36,17 @@
                 android:layout_columnSpan="4"
                 android:hint="@string/input_car_hint"
                 android:paddingLeft="25dp"
+                android:maxLength="20"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/number_7"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/t_number"
+                android:background="@drawable/input_btn_click"
                 android:text="7"
 
                 style="@style/Car_number" />
@@ -55,7 +56,7 @@
                 style="@style/Car_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/t_number"
+                android:background="@drawable/input_btn_click"
                 android:layout_marginLeft="30dp"
                 android:text="8" />
 
@@ -63,7 +64,7 @@
                 android:id="@+id/number_9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/t_number"
+                android:background="@drawable/input_btn_click"
                 android:text="9"
                 android:layout_marginLeft="30dp"
 
@@ -73,7 +74,7 @@
                 android:id="@+id/number_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/t_number"
+                android:background="@drawable/input_btn_click"
                 android:text="退格"
                 android:layout_marginLeft="30dp"
 
@@ -83,8 +84,9 @@
                 android:id="@+id/number_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/t_number"
+                android:background="@drawable/input_btn_click"
                 android:text="4"
+                android:gravity="center"
                 android:layout_marginTop="30dp"
                 style="@style/Car_number" />
 
@@ -92,7 +94,7 @@
                 android:id="@+id/number_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/t_number"
+                android:background="@drawable/input_btn_click"
                 android:text="5"
                 style="@style/Car_number" />
 
@@ -100,7 +102,7 @@
                 android:id="@+id/number_6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/t_number"
+                android:background="@drawable/input_btn_click"
                 android:text="6"
                 style="@style/Car_number" />
 
@@ -108,7 +110,7 @@
                 android:id="@+id/number_0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/t_number"
+                android:background="@drawable/input_btn_click"
                 android:text="0"
                 style="@style/Car_number" />
 
@@ -116,7 +118,7 @@
                 android:id="@+id/number_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/t_number"
+                android:background="@drawable/input_btn_click"
                 android:text="1"
                 android:layout_marginTop="30dp"
 
@@ -126,7 +128,7 @@
                 android:id="@+id/number_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/t_number"
+                android:background="@drawable/input_btn_click"
                 android:text="2"
                 style="@style/Car_number" />
 
@@ -134,7 +136,7 @@
                 android:id="@+id/number_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/t_number"
+                android:background="@drawable/input_btn_click"
                 android:text="3"
                 style="@style/Car_number" />
 
@@ -142,7 +144,7 @@
                 android:id="@+id/number_confirm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/t_number"
+                android:background="@drawable/input_btn_click"
                 android:text="确认"
                 style="@style/Car_number_text" />
         </GridLayout>

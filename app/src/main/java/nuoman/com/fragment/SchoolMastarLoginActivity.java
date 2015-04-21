@@ -1,6 +1,6 @@
 package nuoman.com.fragment;
 
-import android.database.sqlite.SQLiteDatabase;
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,26 +10,15 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import nuoman.com.fragment.database.DBManager;
-import nuoman.com.fragment.database.MineDatabase;
 import nuoman.com.fragment.entity.PersonInfo;
 import nuoman.com.framwork.ActivityBase;
-import nuoman.com.framwork.Task;
-import nuoman.com.framwork.network.NMConstants;
-import nuoman.com.framwork.utils.AppConfig;
 import nuoman.com.framwork.utils.AppTools;
-import nuoman.com.framwork.utils.JsonUtil;
-import nuoman.com.framwork.utils.Utils;
 
 
 /**
@@ -80,10 +69,10 @@ public class SchoolMastarLoginActivity extends ActivityBase {
                 AppTools.getToast(s);
 
                 List<PersonInfo> list = new ArrayList<PersonInfo>();
-                list= (List<PersonInfo>)JsonUtil.getGsonInstance().fromJson(s, new TypeToken<List<PersonInfo>>(){}.getType());
-                DBManager.getDbManagerInstance(AppConfig.getContext()).addData(list);
+//                list= (List<PersonInfo>)JsonUtil.getGsonInstance().fromJson(s, new TypeToken<List<PersonInfo>>(){}.getType());
+//                DBManager.getDbManagerInstance(AppConfig.getContext()).addData(list);
 //                DBManager.getDbManagerInstance(AppConfig.getContext()).clearData();
-                DBManager.getDbManagerInstance(AppConfig.getContext()).closeDb();
+//                DBManager.getDbManagerInstance(AppConfig.getContext()).closeDb();
 
             }
         }, new Response.ErrorListener() {
@@ -104,7 +93,9 @@ public class SchoolMastarLoginActivity extends ActivityBase {
 
         switch (v.getId()) {
             case R.id.bt_manager_login:
-                taskStringRequest();
+//                taskStringRequest();
+                Intent intent=new Intent(SchoolMastarLoginActivity.this,MainActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

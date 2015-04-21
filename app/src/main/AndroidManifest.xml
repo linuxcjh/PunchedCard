@@ -56,6 +56,14 @@
             android:windowSoftInputMode="adjustPan|stateHidden" >
         </activity>
 
+        <!--SettingActivity  -->
+        <activity
+            android:name=".SettingActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|fontScale"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
     </application>
 
 </manifest>

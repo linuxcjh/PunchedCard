@@ -6,7 +6,7 @@
     <!--Main page-->
     <string name="main_top_bar_school_name">西安诺曼科技幼儿园</string>
     <string name="main_teacher_sign_button">老\n师\n签\n到</string>
-    <string name="main_bottom_copyright">诺曼科技\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020版权所有</string>
+    <string name="main_bottom_copyright">诺曼科技</string>
 
     <!--input car number-->
     <string name="input_car_hint">请您输入卡号</string>
