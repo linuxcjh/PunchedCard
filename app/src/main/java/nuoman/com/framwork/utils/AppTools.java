@@ -146,11 +146,11 @@ public class AppTools {
 	 * 
 	 * @return
 	 */
-	public static String getImageSavePath(Activity activity) {
+	public  String getImageSavePath(Activity activity) {
 		if (AppTools.getSDPath().equals("")) {
 			return activity.getFilesDir().getPath();
 		}
-		File file = new File(AppTools.getSDPath() + "/XXB/profession/dcim");
+		File file = new File(AppTools.getSDPath() + "/anuoman/dcim");
 		if (!file.exists()) {
 			if (file.mkdirs()) {
 				return file.getPath();
@@ -170,7 +170,7 @@ public class AppTools {
 			return activity.getFilesDir().getPath();
 		}
 		File file = new File(AppTools.getSDPath()
-				+ "/XXB/profession/dcim/compres");
+				+ "/anuoman/dcim/compres");
 		if (!file.exists()) {
 			if (file.mkdirs()) {
 				return file.getPath();
@@ -209,6 +209,7 @@ public class AppTools {
 						AppConfig.getContext().CONNECTIVITY_SERVICE);
 		NetworkInfo networkinfo = manager.getActiveNetworkInfo();
 		if (networkinfo == null || !networkinfo.isAvailable()) {
+            getToast("请检查网络！");
 			return false;
 		}
 		return true;
@@ -687,7 +688,14 @@ public class AppTools {
 	public static void getToast( String content) {
 		Toast.makeText(AppConfig.getContext(), content, Toast.LENGTH_SHORT).show();
 	}
-
+    /**
+     * Toast
+     *
+     * @param resId
+     */
+    public static void getToast( int resId) {
+        Toast.makeText(AppConfig.getContext(),AppConfig.getContext().getResources().getString(resId) , Toast.LENGTH_SHORT).show();
+    }
 	/**
 	 * 预定时分和当前时分秒差
 	 */

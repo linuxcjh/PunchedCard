@@ -25,4 +25,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.squareup.picasso:picasso:2.3.2'
     compile files('libs/volley.jar')
+    compile files('libs/httpmime-4.1.1.jar')
 }

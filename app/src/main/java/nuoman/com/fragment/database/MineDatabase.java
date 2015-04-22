@@ -24,7 +24,8 @@ public class MineDatabase extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         try{
             db.beginTransaction();
-            db.execSQL("CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT,person_name TEXT,person_number TEXT,person_tel TEXT)");
+            db.execSQL("CREATE TABLE t_person (id INTEGER PRIMARY KEY AUTOINCREMENT,person_name TEXT,person_number TEXT,person_tel TEXT)");
+            db.execSQL("CREATE TABLE t_news (id INTEGER PRIMARY KEY AUTOINCREMENT,news_id TEXT,news_title TEXT,news_imageurl TEXT)");
             db.setTransactionSuccessful();
         }catch (Exception e){
             e.printStackTrace();

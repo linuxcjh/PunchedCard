@@ -2,10 +2,12 @@ package nuoman.com.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.KeyEvent;
@@ -40,31 +42,35 @@ import nuoman.com.fragment.database.DBManager;
 import nuoman.com.fragment.entity.NewsInfo;
 import nuoman.com.fragment.entity.PersonInfo;
 import nuoman.com.framwork.ActivityBase;
+import nuoman.com.framwork.network.NMConstants;
 import nuoman.com.framwork.utils.AppConfig;
 import nuoman.com.framwork.utils.AppTools;
+import nuoman.com.framwork.utils.DateUtil;
 import nuoman.com.framwork.utils.JsonUtil;
 
-
+/**
+ * MainActivity
+ */
 public class MainActivity extends ActivityBase {
     private RequestQueue requestQueue;
     private ViewFlow viewFlow;
     private CircleFlowIndicator indic;
     private Button teacher_login_bt;
-//    String url = "http://123.57.34.179/attendence_sys/SendInfoController?schlid=8";//获取人员信息
-    private   String url="http://123.57.34.179/attendence_sys/SendNewsController?schlid=2";//获取新闻
     private Camera camera; //相机
     private Camera.Parameters parameters;//相机参数
+    private   String toPath;//压缩路径
+
     @Override
     protected void findWigetAndListener() {
         viewFlow = getViewById(R.id.view_flow);
-         indic =getViewById(R.id.view_flow_in);
-        teacher_login_bt=getViewById(R.id.teacher_login_bt);
+        indic = getViewById(R.id.view_flow_in);
+        teacher_login_bt = getViewById(R.id.teacher_login_bt);
         teacher_login_bt.setOnClickListener(this);
     }
 
     @Override
     protected void initData() {
-        setCamera( );
+        setCamera();
         requestQueue = Volley.newRequestQueue(this);
         viewFlow.setAdapter(new ImageAdapter(this));
         viewFlow.setmSideBuffer(3); // 实际图片张数， 我的ImageAdapter实际图片张数为3
@@ -78,7 +84,7 @@ public class MainActivity extends ActivityBase {
     /**
      * 设置相机
      */
-    private void setCamera( ){
+    private void setCamera() {
         SurfaceView surfaceView = (SurfaceView) this
                 .findViewById(R.id.surfaceView);
         surfaceView.getHolder()
@@ -87,6 +93,7 @@ public class MainActivity extends ActivityBase {
         surfaceView.getHolder().setKeepScreenOn(true);// 屏幕常亮
         surfaceView.getHolder().addCallback(new SurfaceCallback());//为SurfaceView的句柄添加一个回调函数
     }
+
     @Override
     protected int setContentViewResId() {
         return R.layout.activity_main;
@@ -95,7 +102,7 @@ public class MainActivity extends ActivityBase {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case   R.id.teacher_login_bt:
+            case R.id.teacher_login_bt:
                 camera.takePicture(null, null, new MyPictureCallback());//拍照
                 break;
             default:
@@ -103,57 +110,64 @@ public class MainActivity extends ActivityBase {
         }
 
     }
+
     /**
-     * 人员信息请求
+     * request person info.
      */
     private void taskStringRequest() {
+        String urlPersonInfo = NMConstants.HTTP + "SendInfoController?schlid=" + MineApplication.loginInfo.getSchoolId();
         m_progressDialog.show();
-        StringRequest sr = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+        StringRequest sr = new StringRequest(Request.Method.GET, urlPersonInfo, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
                 m_progressDialog.dismiss();
-                AppTools.getToast(s);
-
-                List<NewsInfo> list = new ArrayList<NewsInfo>();
-                list= (List<NewsInfo>) JsonUtil.getGsonInstance().fromJson(s, new TypeToken<List<NewsInfo>>(){}.getType());
-//                DBManager.getDbManagerInstance(AppConfig.getContext()).addData(list);
-//                DBManager.getDbManagerInstance(AppConfig.getContext()).closeDb();
-
+                if (!TextUtils.isEmpty(s)) {
+                    List<PersonInfo> list = new ArrayList<PersonInfo>();
+                    list = (List<PersonInfo>) JsonUtil.getGsonInstance().fromJson(s, new TypeToken<List<PersonInfo>>() {
+                    }.getType());
+                    DBManager.getDbManagerInstance(AppConfig.getContext()).addData(list);
+                    AppTools.getToast(R.string.init_person_info);
+                } else {
+                    AppTools.getToast(R.string.request_error);
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 m_progressDialog.dismiss();
-                AppTools.getToast("volleyError");
+                AppTools.getToast(R.string.data_error);
             }
         });
 
         sr.setRetryPolicy(new DefaultRetryPolicy(2000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(sr);
     }
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_HOME:
-                return true;
-            case KeyEvent.KEYCODE_BACK:
-                return true;
-            case KeyEvent.KEYCODE_CALL:
-                return true;
-            case KeyEvent.KEYCODE_SYM:
-                return true;
-            case KeyEvent.KEYCODE_VOLUME_DOWN:
-                return true;
-            case KeyEvent.KEYCODE_VOLUME_UP:
-                return true;
-            case KeyEvent.KEYCODE_STAR:
-                return true;
-            default:
-                break;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
 
+    /**
+     * obtain news info.
+     */
+    private void taskNewsRequest() {
+        String urlNews = NMConstants.HTTP + "SendNewsController?schlid=" + MineApplication.loginInfo.getSchoolId();
+        m_progressDialog.show();
+        StringRequest sr = new StringRequest(Request.Method.GET, urlNews, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                m_progressDialog.dismiss();
+                List<NewsInfo> list = new ArrayList<NewsInfo>();
+                list = (List<NewsInfo>) JsonUtil.getGsonInstance().fromJson(s, new TypeToken<List<NewsInfo>>() {
+                }.getType());
+                DBManager.getDbManagerInstance(AppConfig.getContext()).addNewsData(list);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                m_progressDialog.dismiss();
+                AppTools.getToast(R.string.data_error);
+            }
+        });
+        sr.setRetryPolicy(new DefaultRetryPolicy(2000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        requestQueue.add(sr);
+    }
 
     /**
      * 拍照监听
@@ -163,13 +177,13 @@ public class MainActivity extends ActivityBase {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
             try {
-                Bundle   bundle = new Bundle();
+                Bundle bundle = new Bundle();
                 bundle.putByteArray("bytes", data); //将图片字节数据保存在bundle当中，实现数据交换
+                bundle.putString("path",toPath);
                 saveToSDCard(data); // 保存图片到sd卡中
-                Toast.makeText(getApplicationContext(),"成功",
-                        Toast.LENGTH_SHORT).show();
+                AppTools.getToast("Success!");
                 camera.startPreview(); // 拍完照后，重新开始预览
-                Intent intent=new Intent(MainActivity.this,TeacherPunchSuccessActivity.class);
+                Intent intent = new Intent(MainActivity.this, TeacherPunchSuccessActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
             } catch (Exception e) {
@@ -180,22 +194,25 @@ public class MainActivity extends ActivityBase {
 
     /**
      * 将拍下来的照片存放在SD卡中
+     *
      * @param data
      * @throws java.io.IOException
      */
-    public static void saveToSDCard(byte[] data) throws IOException {
-        Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss"); // 格式化时间
-        String filename = format.format(date) + ".jpg";
-        File fileFolder = new File(Environment.getExternalStorageDirectory()
-                + "/finger/");
-        if (!fileFolder.exists()) { // 如果目录不存在，则创建一个名为"finger"的目录
-            fileFolder.mkdir();
-        }
-        File jpgFile = new File(fileFolder, filename);
+    public void saveToSDCard(byte[] data) throws IOException {
+
+        String savePath = new AppTools().getImageSavePath(this) + "/" + AppTools.getTime(DateUtil.yyyyMMddHHmmss) + ".jpg";
+
+        File jpgFile = new File(savePath);
         FileOutputStream outputStream = new FileOutputStream(jpgFile); // 文件输出流
         outputStream.write(data); // 写入sd卡中
         outputStream.close(); // 关闭输出流
+
+         toPath = AppTools.getImageCompresPath(this) + "/"
+                + AppTools.getTime(DateUtil.yyyyMMddHHmmss)
+                + Math.random() * 10000 + ".jpg";
+        BitmapFactory.decodeFile(AppTools.compressImage( //压缩存储
+                toPath, 640, savePath));
+
     }
 
 
@@ -205,7 +222,7 @@ public class MainActivity extends ActivityBase {
         public void surfaceChanged(SurfaceHolder holder, int format, int width,
                                    int height) {
 
-            AppTools.getToast(""+width+" :"+height);
+            AppTools.getToast("" + width + " :" + height);
             parameters = camera.getParameters(); // 获取各项参数
             parameters.setPictureFormat(PixelFormat.JPEG); // 设置图片格式
             parameters.setPreviewSize(width, height); // 设置预览大小

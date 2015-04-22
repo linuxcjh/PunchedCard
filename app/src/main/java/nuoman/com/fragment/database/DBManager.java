@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.List;
 
+import nuoman.com.fragment.entity.NewsInfo;
 import nuoman.com.fragment.entity.PersonInfo;
 
 /**
@@ -37,7 +38,7 @@ public class DBManager {
         db.beginTransaction();
         try {
             for (PersonInfo personInfo : list) {
-                db.execSQL("INSERT INTO person VALUES(null,?,?,?)", new Object[]{personInfo.getName(), personInfo.getCardno(), personInfo.getNumber()});
+                db.execSQL("INSERT INTO t_person VALUES(null,?,?,?)", new Object[]{personInfo.getName(), personInfo.getCardno(), personInfo.getNumber()});
             }
             db.setTransactionSuccessful();
 
@@ -45,9 +46,29 @@ public class DBManager {
             e.printStackTrace();
         } finally {
             db.endTransaction();
+            db.close();
         }
     }
+    /**
+     * Add person info
+     *
+     * @param list
+     */
+    public void addNewsData(List<NewsInfo> list) {
+        db.beginTransaction();
+        try {
+            for (NewsInfo newsInfo : list) {
+                db.execSQL("INSERT INTO t_news VALUES(null,?,?,?)", new Object[]{newsInfo.getPkid(), newsInfo.getTitle(), newsInfo.getImageUrl()});
+            }
+            db.setTransactionSuccessful();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            db.endTransaction();
+            db.close();
+        }
+    }
     /**
      * clear data
      */
@@ -62,6 +83,7 @@ public class DBManager {
             e.printStackTrace();
         } finally {
             db.endTransaction();
+            db.close();
         }
     }
     /**
