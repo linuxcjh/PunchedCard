@@ -1,6 +1,9 @@
 package nuoman.com.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,13 +15,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import nuoman.com.fragment.entity.LoginInfo;
 import nuoman.com.fragment.entity.PersonInfo;
 import nuoman.com.framwork.ActivityBase;
+import nuoman.com.framwork.network.NMConstants;
 import nuoman.com.framwork.utils.AppTools;
+import nuoman.com.framwork.utils.JsonUtil;
 
 
 /**
@@ -32,7 +39,7 @@ public class SchoolMastarLoginActivity extends ActivityBase {
     private EditText manager_car_number;
     private Button bt_manager_login;
 
-    String url="http://123.57.34.179/attendence_sys/LoginController?tel=18000000000&machineid=1";//校长登陆
+
 
     @Override
     protected int setContentViewResId() {
@@ -61,19 +68,16 @@ public class SchoolMastarLoginActivity extends ActivityBase {
      * 人员信息请求
      */
     private void taskStringRequest() {
+
+        String url= NMConstants.HTTP+"LoginController?tel="+manager_car_number.getText().toString()+"&machineid="+getImei();//校长登陆
         m_progressDialog.show();
         StringRequest sr = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
                 m_progressDialog.dismiss();
-                AppTools.getToast(s);
-
-                List<PersonInfo> list = new ArrayList<PersonInfo>();
-//                list= (List<PersonInfo>)JsonUtil.getGsonInstance().fromJson(s, new TypeToken<List<PersonInfo>>(){}.getType());
-//                DBManager.getDbManagerInstance(AppConfig.getContext()).addData(list);
-//                DBManager.getDbManagerInstance(AppConfig.getContext()).clearData();
-//                DBManager.getDbManagerInstance(AppConfig.getContext()).closeDb();
-
+                MineApplication.loginInfo=(LoginInfo) JsonUtil.getGsonInstance().fromJson(s, new TypeToken<LoginInfo>(){}.getType());
+                Intent intent=new Intent(SchoolMastarLoginActivity.this,MainActivity.class);
+                startActivity(intent);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -93,14 +97,25 @@ public class SchoolMastarLoginActivity extends ActivityBase {
 
         switch (v.getId()) {
             case R.id.bt_manager_login:
-//                taskStringRequest();
-                Intent intent=new Intent(SchoolMastarLoginActivity.this,MainActivity.class);
-                startActivity(intent);
+                if(AppTools.netWorkJuder()&&!TextUtils.isEmpty(manager_car_number.getText().toString())){
+                    taskStringRequest();
+                }
                 break;
             default:
                 break;
         }
 
     }
+    /**
+     * 获取手机IMEI
+     *
+     * @return
+     */
+    private String getImei() {
+        TelephonyManager mTm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        String imei = mTm.getDeviceId();
+        // String imsi = mTm.getSubscriberId();
+        return imei;
 
+    }
 }

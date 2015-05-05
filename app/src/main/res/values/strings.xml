@@ -3,6 +3,8 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="request_error">请求错误！</string>
+    <string name="data_error">数据错误！</string>
     <!--Main page-->
     <string name="main_top_bar_school_name">西安诺曼科技幼儿园</string>
     <string name="main_teacher_sign_button">老\n师\n签\n到</string>
@@ -21,5 +23,7 @@
     <string name="school_punch_card_parent">监\u0020\u0020护\u0020\u0020人：</string>
     <string name="teacher_punch_card_num">卡\u0020\u0020\u0020\u0020\u0020\u0020\u0020号：</string>
     <string name="teacher_punch_time">签到时间：</string>
+    <string name="init_person_info">人员信息初始化完成！</string>
+
 
 </resources>

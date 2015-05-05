@@ -29,10 +29,9 @@ import nuoman.com.framwork.ActivityBase;
  * @TODO [输入卡号打卡]
  */
 public class TeacherInputNumberActivity extends ActivityBase {
-    private RequestQueue requestQueue;
+
     private TextView car_number;
     private Button number_0, number_1, number_2, number_3, number_4, number_5, number_6, number_7, number_8, number_9, number_back, number_confirm;
-    String url = "http://123.57.34.179/attendence_sys/WriteAttLogController";
 
     @Override
     protected int setContentViewResId() {
@@ -82,7 +81,7 @@ public class TeacherInputNumberActivity extends ActivityBase {
     @Override
     protected void initData() {
         // TODO Auto-generated method stub
-        requestQueue = Volley.newRequestQueue(this);
+
 
     }
 
@@ -136,46 +135,7 @@ public class TeacherInputNumberActivity extends ActivityBase {
     }
 
 
-    /**
-     * commit data
-     * kind	打卡类型
-     * cardno	打卡的卡号
-     * schlid	学校ID
-     * machineno	机器号
-     * timestamp	打卡的时间戳
-     * photo	照片的二进制流
-     */
-    private void taskRequest() {
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("kind", "value1");
-        map.put("cardno", "value2");
-        map.put("schlid", "value2");
-        map.put("machineno", "value2");
-        map.put("timestamp", "value2");
-        map.put("photo", "value2");
-        JSONObject jsonObject = new JSONObject(map);
-        JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d("TAG", "response -> " + response.toString());
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("TAG", error.getMessage(), error);
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Accept", "application/json");
-                headers.put("Content-Type", "application/json; charset=UTF-8");
-                return headers;
-            }
-        };
-        requestQueue.add(jsonRequest);
-    }
+
 
 
 }

@@ -4,25 +4,16 @@ package nuoman.com.fragment.entity;
  * Created by Administrator on 2015/4/19.
  */
 public class NewsInfo {
-    private String content;
-    private String image;
+    private String imageUrl;
     private String pkid;
     private String title;
 
-    public String getContent() {
-        return content;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getPkid() {
