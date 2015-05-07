@@ -99,7 +99,7 @@ public class MainActivity extends ActivityBase {
         viewFlow.setSelection(3 * 1000); // 设置初始位置
         viewFlow.startAutoFlowTimer(); // 启动自动播放
         taskStringRequest();
-        taskNewsRequest();
+//        taskNewsRequest();
 
     }
 
@@ -125,7 +125,9 @@ public class MainActivity extends ActivityBase {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.teacher_login_bt:
-                    camera.takePicture(null, null, new MyPictureCallback());//拍照
+//                    camera.takePicture(null, null, new MyPictureCallback());//拍照
+                Intent intent=new Intent(MainActivity.this,TeacherInputNumberActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;
@@ -137,7 +139,8 @@ public class MainActivity extends ActivityBase {
      * request person info.
      */
     private void taskStringRequest() {
-        String urlPersonInfo = NMConstants.HTTP + "SendInfoController?schlid=" + MineApplication.loginInfo.getSchoolId();
+//        String urlPersonInfo = NMConstants.HTTP + "SendInfoController?schlid=" + MineApplication.loginInfo.getSchoolId();
+        String urlPersonInfo = "http://123.57.34.179/attendence_sys/SendInfoController?schlid=2";
         m_progressDialog.show();
         StringRequest sr = new StringRequest(Request.Method.GET, urlPersonInfo, new Response.Listener<String>() {
             @Override
@@ -148,7 +151,10 @@ public class MainActivity extends ActivityBase {
                     list = (List<PersonInfo>) JsonUtil.getGsonInstance().fromJson(s, new TypeToken<List<PersonInfo>>() {
                     }.getType());
                     DBManager.getDbManagerInstance(AppConfig.getContext()).addData(list);
+
                     AppTools.getToast(R.string.init_person_info);
+
+                    DBManager.getDbManagerInstance(AppConfig.getContext()).closeDb();
                 } else {
                     AppTools.getToast(R.string.request_error);
                 }
@@ -169,7 +175,7 @@ public class MainActivity extends ActivityBase {
      * obtain news info.
      */
     private void taskNewsRequest() {
-        String urlNews = NMConstants.HTTP + "SendNewsController?schlid=" + MineApplication.loginInfo.getSchoolId();
+        String urlNews = "http://123.57.34.179/attendence_sys/SendNewsController?schlid=" + MineApplication.loginInfo.getSchoolId();
         m_progressDialog.show();
         StringRequest sr = new StringRequest(Request.Method.GET, urlNews, new Response.Listener<String>() {
             @Override

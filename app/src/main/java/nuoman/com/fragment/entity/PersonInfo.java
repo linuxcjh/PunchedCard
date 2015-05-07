@@ -7,6 +7,17 @@ public class PersonInfo {
     private String cardno;//car number
     private String name;
     private String number;
+    private String kind;//0：学生，1：老师
+
+
+
+    public String getKind() {
+        return kind;
+    }
+
+    public void setKind(String kind) {
+        this.kind = kind;
+    }
 
     public String getCardno() {
         return cardno;

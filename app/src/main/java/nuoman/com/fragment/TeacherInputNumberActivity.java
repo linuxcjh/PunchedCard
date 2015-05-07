@@ -125,7 +125,7 @@ public class TeacherInputNumberActivity extends ActivityBase {
                 }
                 break;
             case R.id.number_confirm:
-                Intent intent = new Intent(TeacherInputNumberActivity.this, SettingActivity.class);
+                Intent intent = new Intent(TeacherInputNumberActivity.this, TeacherPunchSuccessActivity.class);
                 startActivity(intent);
                 break;
             default:

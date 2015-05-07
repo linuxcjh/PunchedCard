@@ -1,6 +1,7 @@
 package nuoman.com.fragment.database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.List;
@@ -38,7 +39,7 @@ public class DBManager {
         db.beginTransaction();
         try {
             for (PersonInfo personInfo : list) {
-                db.execSQL("INSERT INTO t_person VALUES(null,?,?,?)", new Object[]{personInfo.getName(), personInfo.getCardno(), personInfo.getNumber()});
+                db.execSQL("INSERT INTO t_person VALUES(null,?,?,?,?)", new Object[]{personInfo.getName(), personInfo.getCardno(), personInfo.getNumber(),personInfo.getKind()});
             }
             db.setTransactionSuccessful();
 
@@ -46,7 +47,6 @@ public class DBManager {
             e.printStackTrace();
         } finally {
             db.endTransaction();
-            db.close();
         }
     }
     /**
@@ -68,6 +68,23 @@ public class DBManager {
             db.endTransaction();
             db.close();
         }
+    }
+
+    /**
+     * check role;
+     * @param cardNo
+     */
+    public String queryRoleByCardNo(String cardNo){
+        String role=null;
+        db.beginTransaction();
+        Cursor cursor=db.rawQuery("SELECT person_role FROM t_person WHERE person_number=?",new String[]{cardNo});
+
+        if (cursor.moveToFirst()){
+            role=cursor.getString(cursor.getColumnIndex("person_role"));
+            cursor.close();
+        }
+
+        return  role;
     }
     /**
      * clear data
