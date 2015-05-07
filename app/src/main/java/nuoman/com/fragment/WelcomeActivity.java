@@ -45,7 +45,7 @@ public class WelcomeActivity extends ActivityBase {
                     finish();
                 } else {
                     Intent intent = new Intent(WelcomeActivity.this,
-                            SchoolMastarLoginActivity.class);
+                            MainActivity.class);
                     startActivity(intent);
                     finish();
                 }

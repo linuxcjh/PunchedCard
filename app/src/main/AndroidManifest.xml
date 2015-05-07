@@ -35,35 +35,36 @@
         <!-- Admin login-->
         <activity
             android:name=".MainActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|fontScale"
+            android:configChanges="keyboard|keyboardHidden|orientation|fontScale|screenSize"
+
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan|stateHidden" >
         </activity>
         <!-- Teacher input number-->
         <activity
         android:name=".TeacherInputNumberActivity"
-        android:configChanges="keyboard|keyboardHidden|orientation|fontScale"
+        android:configChanges="keyboard|keyboardHidden|orientation|fontScale|screenSize"
         android:screenOrientation="landscape"
         android:windowSoftInputMode="adjustPan|stateHidden" >
     </activity>
         <!-- Teacher punch successful-->
         <activity
             android:name=".TeacherPunchSuccessActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|fontScale"
+            android:configChanges="keyboard|keyboardHidden|orientation|fontScale|screenSize"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan|stateHidden" >
         </activity>
         <!--Parent punch successful-->
         <activity
             android:name=".ParentPunchSuccessActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|fontScale"
+            android:configChanges="keyboard|keyboardHidden|orientation|fontScale|screenSize"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan|stateHidden" >
         </activity>
         <!--WelcomeActivity punch -->
         <activity
             android:name=".SchoolMastarLoginActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|fontScale"
+            android:configChanges="keyboard|keyboardHidden|orientation|fontScale|screenSize"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan|stateHidden" >
         </activity>
@@ -71,7 +72,7 @@
         <!--SettingActivity  -->
         <activity
             android:name=".SettingActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|fontScale"
+            android:configChanges="keyboard|keyboardHidden|orientation|fontScale|screenSize"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan|stateHidden" >
         </activity>

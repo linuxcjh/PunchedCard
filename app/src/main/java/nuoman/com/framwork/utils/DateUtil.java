@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 /**
  * 
@@ -70,7 +71,7 @@ public class DateUtil {
 	public static final Date convertStringToDate(String aMask, String strDate) {
 		SimpleDateFormat df = null;
 		Date date = null;
-		df = new SimpleDateFormat(aMask);
+		df = new SimpleDateFormat(aMask, Locale.CHINESE);
 		try {
 			date = df.parse(strDate);
 		} catch (ParseException pe) {
@@ -81,6 +82,7 @@ public class DateUtil {
 	}
 
 	public static final String getDateTime(String aMask, Date aDate) {
+
 		SimpleDateFormat df = null;
 		String returnValue = "";
 		if (aDate == null) {
@@ -92,6 +94,24 @@ public class DateUtil {
 		return returnValue;
 	}
 
+	/**
+	 * 从系统时间获取指定格式
+	 * @param aMask
+	 * @param time
+	 * @return
+	 */
+	public static final String getDateTimeForsys(String aMask, Long time) {
+
+		SimpleDateFormat df = null;
+		String returnValue = "";
+		if (time == null) {
+			android.util.Log.e("warn", "aDate is null!1");
+		} else {
+			df = new SimpleDateFormat(aMask);
+			returnValue = df.format(time);
+		}
+		return returnValue;
+	}
 	/**
 	 * Translate string of date with separator '-' to <code>java.sql.Date</code>
 	 * type

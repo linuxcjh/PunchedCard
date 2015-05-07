@@ -10,6 +10,12 @@
 
     <include layout="@layout/top_bar"/>
 
+    <EditText
+        android:id="@+id/card_no"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        />
+
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
@@ -34,7 +40,8 @@
             <com.nuoman.widget.ViewFlow
                 android:id="@+id/view_flow"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:visibility="gone">
 
             </com.nuoman.widget.ViewFlow>
 

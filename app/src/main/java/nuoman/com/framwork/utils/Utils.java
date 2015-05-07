@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 
@@ -339,4 +340,18 @@ public class Utils {
         }
         return out.toByteArray();
     }
+
+
+	/**
+	 * 获取手机IMEI
+	 *
+	 * @return
+	 */
+	public static String getImei() {
+		TelephonyManager mTm = (TelephonyManager) AppConfig.getContext().getSystemService(Context.TELEPHONY_SERVICE);
+		String imei = mTm.getDeviceId();
+		// String imsi = mTm.getSubscriberId();
+		return imei;
+
+	}
 }

@@ -6,17 +6,15 @@ import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.os.Bundle;
-import android.os.Environment;
+import android.text.Editable;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
-import android.view.Display;
-import android.view.KeyEvent;
+import android.text.TextWatcher;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.EditText;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -32,9 +30,7 @@ import com.nuoman.widget.ViewFlow;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import nuoman.com.fragment.adapter.ImageAdapter;
@@ -56,9 +52,11 @@ public class MainActivity extends ActivityBase {
     private ViewFlow viewFlow;
     private CircleFlowIndicator indic;
     private Button teacher_login_bt;
+    private EditText cardNoText;//da获取打卡号
     private Camera camera; //相机
     private Camera.Parameters parameters;//相机参数
     private   String toPath;//压缩路径
+    private String cardNo;//获取打卡号
 
     @Override
     protected void findWigetAndListener() {
@@ -66,6 +64,29 @@ public class MainActivity extends ActivityBase {
         indic = getViewById(R.id.view_flow_in);
         teacher_login_bt = getViewById(R.id.teacher_login_bt);
         teacher_login_bt.setOnClickListener(this);
+        cardNoText=getViewById(R.id.card_no);
+        cardNoText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                cardNo= s.toString().trim();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                cardNo= s.toString().trim();
+            }
+
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.toString().length()==10){
+                    cardNo=s.toString().trim();
+                    AppTools.getToast(cardNo);
+                    camera.takePicture(null, null, new MyPictureCallback());//拍照
+                }
+
+            }
+        });
     }
 
     @Override
@@ -78,6 +99,7 @@ public class MainActivity extends ActivityBase {
         viewFlow.setSelection(3 * 1000); // 设置初始位置
         viewFlow.startAutoFlowTimer(); // 启动自动播放
         taskStringRequest();
+        taskNewsRequest();
 
     }
 
@@ -103,7 +125,7 @@ public class MainActivity extends ActivityBase {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.teacher_login_bt:
-                camera.takePicture(null, null, new MyPictureCallback());//拍照
+                    camera.takePicture(null, null, new MyPictureCallback());//拍照
                 break;
             default:
                 break;
@@ -178,11 +200,12 @@ public class MainActivity extends ActivityBase {
         public void onPictureTaken(byte[] data, Camera camera) {
             try {
                 Bundle bundle = new Bundle();
-                bundle.putByteArray("bytes", data); //将图片字节数据保存在bundle当中，实现数据交换
-                bundle.putString("path",toPath);
                 saveToSDCard(data); // 保存图片到sd卡中
-                AppTools.getToast("Success!");
+                AppTools.getToast("拍照完毕!");
                 camera.startPreview(); // 拍完照后，重新开始预览
+                bundle.putByteArray("bytes", data); //将图片字节数据保存在bundle当中，实现数据交换
+                bundle.putString("path", toPath);
+                bundle.putString("cardNo",cardNo);
                 Intent intent = new Intent(MainActivity.this, TeacherPunchSuccessActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -201,17 +224,19 @@ public class MainActivity extends ActivityBase {
     public void saveToSDCard(byte[] data) throws IOException {
 
         String savePath = new AppTools().getImageSavePath(this) + "/" + AppTools.getTime(DateUtil.yyyyMMddHHmmss) + ".jpg";
+        toPath = AppTools.getImageCompresPath(this) + "/"
+                + AppTools.getTime(DateUtil.yyyyMMddHHmmss)
+                + Math.random() * 10000 + ".jpg";
+
 
         File jpgFile = new File(savePath);
         FileOutputStream outputStream = new FileOutputStream(jpgFile); // 文件输出流
         outputStream.write(data); // 写入sd卡中
         outputStream.close(); // 关闭输出流
 
-         toPath = AppTools.getImageCompresPath(this) + "/"
-                + AppTools.getTime(DateUtil.yyyyMMddHHmmss)
-                + Math.random() * 10000 + ".jpg";
         BitmapFactory.decodeFile(AppTools.compressImage( //压缩存储
                 toPath, 640, savePath));
+
 
     }
 

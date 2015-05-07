@@ -1,19 +1,21 @@
 package nuoman.com.framwork.network;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.mime.content.InputStreamBody;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.FileInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -23,7 +25,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import nuoman.com.framwork.utils.JsonUtil;
@@ -219,28 +220,39 @@ public class WebserviceRequest {
         return result;
     }
 
+    /**
+     * 上传打卡照片
+     *
+     * @param url
+     * @param params
+     * @param uploadFilePath
+     * @param returnType
+     * @return
+     */
 
     protected String sendPost(String url, Map<String, String> params, String uploadFilePath, TypeToken<?> returnType) {
         Iterator iterator = params.entrySet().iterator();
-        Object object = null;
 
         String result = null;
         HttpPost httpPost = new HttpPost(url);
         // 设置HTTP POST请求参数必须用NameValuePair对象
         try {
-            org.apache.http.entity.mime.MultipartEntity entity = new org.apache.http.entity.mime.MultipartEntity();
+            MultipartEntity entity = new org.apache.http.entity.mime.MultipartEntity();
             while (iterator.hasNext()) {
                 Map.Entry<String, String> entry = (Map.Entry<String, String>) iterator.next();
                 String key = entry.getKey();
                 String value = entry.getValue();
                 entity.addPart(key, new StringBody(value, Charset.forName("UTF-8")));
             }
-            FileInputStream fin = new FileInputStream(uploadFilePath);
-            InputStreamBody isb = new InputStreamBody(fin, "image");
-            entity.addPart("file", isb);
+            if(!TextUtils.isEmpty(uploadFilePath)){
+                entity.addPart("file", new FileBody(new File(uploadFilePath)));
+            }
+
+//            FileInputStream fin = new FileInputStream(uploadFilePath);
+//            InputStreamBody isb = new InputStreamBody(fin, "image");
+//            entity.addPart("file", isb);
             httpPost.setEntity(entity);
-            HttpResponse httpResponse;
-            httpResponse = new DefaultHttpClient().execute(httpPost);
+            HttpResponse httpResponse =new  DefaultHttpClient().execute(httpPost);
             if (httpResponse.getStatusLine().getStatusCode() == 200) {
                 // 第三步，使用getEntity方法活得返回结果
                 result = EntityUtils.toString(httpResponse.getEntity());
