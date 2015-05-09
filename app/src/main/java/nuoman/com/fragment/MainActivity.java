@@ -126,7 +126,7 @@ public class MainActivity extends ActivityBase {
         switch (v.getId()) {
             case R.id.teacher_login_bt:
 //                    camera.takePicture(null, null, new MyPictureCallback());//拍照
-                Intent intent=new Intent(MainActivity.this,TeacherInputNumberActivity.class);
+                Intent intent=new Intent(MainActivity.this,SettingActivity.class);
                 startActivity(intent);
                 break;
             default:

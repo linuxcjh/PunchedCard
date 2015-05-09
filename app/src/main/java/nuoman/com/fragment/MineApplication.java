@@ -13,13 +13,15 @@ import nuoman.com.framwork.utils.AppConfig;
 public class MineApplication extends Application {
 
     public static LoginInfo loginInfo;
-
+    /**
+     * ÊÇ·ñ¸üÐÂ
+     *
+     * @return
+     */
+    public static boolean isUpdate;
     @Override
     public void onCreate() {
         super.onCreate();
         AppConfig.setContext(this);
     }
-
-
-
 }
