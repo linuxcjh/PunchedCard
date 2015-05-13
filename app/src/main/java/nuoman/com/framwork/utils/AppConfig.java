@@ -78,11 +78,41 @@ public class AppConfig {
 * 初始化登陆
 * */
     public static void setIsInit( String value) {
-        setStringConfig("INIT_LOGIN",value);
+        setStringConfig("INIT_LOGIN", value);
     }
 
     public static String getIsInit() {
-
         return getStringConfig("INIT_LOGIN","");
     }
+
+	/**
+	 * role
+	 * @param value
+	 */
+	public static void setInitRole( String value) {
+		setStringConfig("INIT_ROLE",value);
+	}
+	public static String getInitRole() {
+		return getStringConfig("INIT_ROLE","");
+	}
+	/**
+	 *  school id
+	 * @param value
+	 */
+	public static void setInitSchoolId( String value) {
+		setStringConfig("INIT_SCHOOL_ID)",value);
+	}
+	public static String getInitSchoolId() {
+		return getStringConfig("INIT_SCHOOL_ID","");
+	}
+	/**
+	 *  school name
+	 * @param value
+	 */
+	public static void setInitSchoolname( String value) {
+		setStringConfig("INIT_SCHOOL_NAME)",value);
+	}
+	public static String getInitSchoolname() {
+		return getStringConfig("INIT_SCHOOL_NAME","");
+	}
 }

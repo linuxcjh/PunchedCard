@@ -87,13 +87,29 @@ public class DBManager {
         return  role;
     }
     /**
+     * check name;
+     * @param cardNo
+     */
+    public String queryNameByCardNo(String cardNo){
+        String name=null;
+        db.beginTransaction();
+        Cursor cursor=db.rawQuery("SELECT person_name FROM t_person WHERE person_number=?",new String[]{cardNo});
+
+        if (cursor.moveToFirst()){
+            name=cursor.getString(cursor.getColumnIndex("person_name"));
+            cursor.close();
+        }
+
+        return  name;
+    }
+    /**
      * clear data
      */
     public void clearData( ){
 
         db.beginTransaction();
         try {
-            db.execSQL("DELETE FROM person");
+            db.execSQL("DELETE FROM t_person");
             db.execSQL("DELETE FROM sqlite_sequence");
             db.setTransactionSuccessful();
         } catch (Exception e) {

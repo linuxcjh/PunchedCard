@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.provider.SyncStateContract;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -44,6 +43,7 @@ public class SettingActivity extends ActivityBase {
     private Button back_main_page, admin_check_update, admin_reset, admin_exit;
     private RequestQueue requestQueue;
     private DownloadCompleteReceiver receiver;
+
     @Override
     protected int setContentViewResId() {
         // TODO Auto-generated method stub
@@ -104,9 +104,9 @@ public class SettingActivity extends ActivityBase {
             public void onResponse(String s) {
                 m_progressDialog.dismiss();
                 if (!TextUtils.isEmpty(s)) {
-                    List<UpdataVersionInfo>   list = (List<UpdataVersionInfo>) JsonUtil.getGsonInstance().fromJson(s, new TypeToken<List<UpdataVersionInfo>>() {
+                    List<UpdataVersionInfo> list = (List<UpdataVersionInfo>) JsonUtil.getGsonInstance().fromJson(s, new TypeToken<List<UpdataVersionInfo>>() {
                     }.getType());
-                    if(list!=null && list.size()>0){
+                    if (list != null && list.size() > 0) {
                         UpdateVersion updateVersion = new UpdateVersion(SettingActivity.this,
                                 list.get(0), 0);
                         updateVersion.showIsUpdata();
@@ -126,6 +126,7 @@ public class SettingActivity extends ActivityBase {
         sr.setRetryPolicy(new DefaultRetryPolicy(2000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(sr);
     }
+
     /**
      * 静态注册广播
      */
@@ -135,6 +136,7 @@ public class SettingActivity extends ActivityBase {
         registerReceiver(receiver, filter);
 
     }
+
     // 接受下载完成后的intent
     class DownloadCompleteReceiver extends BroadcastReceiver {
         @Override

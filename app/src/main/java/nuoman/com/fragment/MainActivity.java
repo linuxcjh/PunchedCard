@@ -56,7 +56,7 @@ public class MainActivity extends ActivityBase {
     private Camera camera; //相机
     private Camera.Parameters parameters;//相机参数
     private   String toPath;//压缩路径
-    private String cardNo;//获取打卡号
+    private String cardNo="0004216378";//获取打卡号
 
     @Override
     protected void findWigetAndListener() {
@@ -65,6 +65,7 @@ public class MainActivity extends ActivityBase {
         teacher_login_bt = getViewById(R.id.teacher_login_bt);
         teacher_login_bt.setOnClickListener(this);
         cardNoText=getViewById(R.id.card_no);
+
         cardNoText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -75,8 +76,6 @@ public class MainActivity extends ActivityBase {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 cardNo= s.toString().trim();
             }
-
-
             @Override
             public void afterTextChanged(Editable s) {
                 if(s.toString().length()==10){
@@ -84,7 +83,6 @@ public class MainActivity extends ActivityBase {
                     AppTools.getToast(cardNo);
                     camera.takePicture(null, null, new MyPictureCallback());//拍照
                 }
-
             }
         });
     }
@@ -125,9 +123,9 @@ public class MainActivity extends ActivityBase {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.teacher_login_bt:
-//                    camera.takePicture(null, null, new MyPictureCallback());//拍照
-                Intent intent=new Intent(MainActivity.this,SettingActivity.class);
-                startActivity(intent);
+                    camera.takePicture(null, null, new MyPictureCallback());//拍照
+//                Intent intent=new Intent(MainActivity.this,TeacherPunchSuccessActivity.class);
+//                startActivity(intent);
                 break;
             default:
                 break;
@@ -139,8 +137,8 @@ public class MainActivity extends ActivityBase {
      * request person info.
      */
     private void taskStringRequest() {
-//        String urlPersonInfo = NMConstants.HTTP + "SendInfoController?schlid=" + MineApplication.loginInfo.getSchoolId();
-        String urlPersonInfo = "http://123.57.34.179/attendence_sys/SendInfoController?schlid=2";
+        String urlPersonInfo = NMConstants.HTTP + "SendInfoController?schlid=" + AppConfig.getInitSchoolId();
+//        String urlPersonInfo = "http://123.57.34.179/attendence_sys/SendInfoController?schlid=2";//AppConfig.getInitSchoolId();
         m_progressDialog.show();
         StringRequest sr = new StringRequest(Request.Method.GET, urlPersonInfo, new Response.Listener<String>() {
             @Override
@@ -151,9 +149,7 @@ public class MainActivity extends ActivityBase {
                     list = (List<PersonInfo>) JsonUtil.getGsonInstance().fromJson(s, new TypeToken<List<PersonInfo>>() {
                     }.getType());
                     DBManager.getDbManagerInstance(AppConfig.getContext()).addData(list);
-
                     AppTools.getToast(R.string.init_person_info);
-
                     DBManager.getDbManagerInstance(AppConfig.getContext()).closeDb();
                 } else {
                     AppTools.getToast(R.string.request_error);
@@ -175,7 +171,7 @@ public class MainActivity extends ActivityBase {
      * obtain news info.
      */
     private void taskNewsRequest() {
-        String urlNews = "http://123.57.34.179/attendence_sys/SendNewsController?schlid=" + MineApplication.loginInfo.getSchoolId();
+        String urlNews = "http://123.57.34.179/attendence_sys/SendNewsController?schlid=" +AppConfig.getInitSchoolId();
         m_progressDialog.show();
         StringRequest sr = new StringRequest(Request.Method.GET, urlNews, new Response.Listener<String>() {
             @Override
@@ -209,7 +205,6 @@ public class MainActivity extends ActivityBase {
                 saveToSDCard(data); // 保存图片到sd卡中
                 AppTools.getToast("拍照完毕!");
                 camera.startPreview(); // 拍完照后，重新开始预览
-                bundle.putByteArray("bytes", data); //将图片字节数据保存在bundle当中，实现数据交换
                 bundle.putString("path", toPath);
                 bundle.putString("cardNo",cardNo);
                 Intent intent = new Intent(MainActivity.this, TeacherPunchSuccessActivity.class);
@@ -242,6 +237,8 @@ public class MainActivity extends ActivityBase {
 
         BitmapFactory.decodeFile(AppTools.compressImage( //压缩存储
                 toPath, 640, savePath));
+
+        jpgFile.delete();//压缩完删除原图
 
 
     }

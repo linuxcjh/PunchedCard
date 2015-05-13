@@ -24,6 +24,7 @@ import nuoman.com.fragment.entity.LoginInfo;
 import nuoman.com.fragment.entity.PersonInfo;
 import nuoman.com.framwork.ActivityBase;
 import nuoman.com.framwork.network.NMConstants;
+import nuoman.com.framwork.utils.AppConfig;
 import nuoman.com.framwork.utils.AppTools;
 import nuoman.com.framwork.utils.JsonUtil;
 
@@ -61,6 +62,9 @@ public class SchoolMastarLoginActivity extends ActivityBase {
         // TODO Auto-generated method stub
         requestQueue = Volley.newRequestQueue(this);
 
+        manager_car_number.setText("18000000000");
+        bt_manager_login.performClick();
+
     }
 
 
@@ -75,7 +79,12 @@ public class SchoolMastarLoginActivity extends ActivityBase {
             @Override
             public void onResponse(String s) {
                 m_progressDialog.dismiss();
-                MineApplication.loginInfo=(LoginInfo) JsonUtil.getGsonInstance().fromJson(s, new TypeToken<LoginInfo>(){}.getType());
+                LoginInfo loginInfo=(LoginInfo) JsonUtil.getGsonInstance().fromJson(s, new TypeToken<LoginInfo>(){}.getType());
+                //save login info
+                MineApplication.loginInfo=loginInfo;
+                AppConfig.setInitRole(loginInfo.getRole());
+                AppConfig.setInitSchoolId(loginInfo.getSchoolId());
+                AppConfig.setInitSchoolname(loginInfo.getSchoolname());
                 Intent intent=new Intent(SchoolMastarLoginActivity.this,MainActivity.class);
                 startActivity(intent);
             }
